@@ -11,37 +11,29 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import com.example.weather_api.ui.theme.Weather_ApiTheme
+import np.com.bimalkafle.realtimeweather.WeatherPage
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val weatherViewModel = ViewModelProvider(this)[WeatherViewModel::class.java]
         enableEdgeToEdge()
         setContent {
             Weather_ApiTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    WeatherPage(weatherViewModel)
+
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+// weather app -> viewmoidel (live data) -> retrofit ->weater api -< json respose
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Weather_ApiTheme {
-        Greeting("Android")
-    }
-}
+//retrfit instance  weather api weater model view model
+
+//succss , fail , error
